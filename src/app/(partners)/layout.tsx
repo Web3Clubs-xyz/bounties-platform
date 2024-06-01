@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Nav from "@/components/common/nav/nav";
 import { Lexend } from "next/font/google";
+import Footer from "@/components/common/footer/footer";
 
 export const metadata: Metadata = {
   title: "Bounties",
@@ -38,6 +39,10 @@ export default function PartnersPagesLayout({
               </div>
             </div>
           </main>
+          
+          <div>
+            <Footer/>
+          </div>
         </div>
       </body>
     </html>

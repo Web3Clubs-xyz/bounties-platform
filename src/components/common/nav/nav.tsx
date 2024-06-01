@@ -8,6 +8,8 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import ProfileMenu from '../menu/profile-menu'
 import MainProfile from '../menu/main-profile'
 import Link from 'next/link';
+import Image from 'next/image';
+import Logo from '/public/images/logo.svg'
 
 const Nav = () => {
   return (
@@ -22,10 +24,12 @@ const Nav = () => {
                   <div className="relative flex h-16 items-center justify-between lg:border-b lg:border-indigo-400 lg:border-opacity-25">
                     <div className="flex items-center px-2 lg:px-0">
                       <Link href="/" className="flex-shrink-0">
-                        <img
-                          className="block h-8 w-8"
-                          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
-                          alt="Your Company"
+                        <Image
+                          className="block h-24 w-24"
+                          src={Logo}
+                          alt="Web3Clubs Logo"
+                          width={50}
+                          height={50}
                         />
                       </Link>
                       <NavLinks />

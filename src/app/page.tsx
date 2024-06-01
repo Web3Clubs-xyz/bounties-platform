@@ -1,11 +1,12 @@
 
+import Footer from "@/components/common/footer/footer";
 import Nav from "@/components/common/nav/nav";
 
 export default function Home() {
   return (
-    <>
+    <div className=''>
     
-      <div className="min-h-full">
+      <div className="min-h-full ">
         <div className="bg-indigo-600 pb-32">
          <Nav/>
           <header className="py-10">
@@ -22,10 +23,15 @@ export default function Home() {
             {/* Your content */}
             <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
               Chizaa
-            </div>
+              
+              </div>
           </div>
         </main>
+
+        <div>
+            <Footer/>
+          </div>
       </div>
-    </>
+    </div>
   );
 }
