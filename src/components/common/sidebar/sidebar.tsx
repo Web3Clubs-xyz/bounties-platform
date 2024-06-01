@@ -33,6 +33,8 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import Search from "../search/search";
+import NavLinks from "../nav/nav-links";
+import Web3Logo from "@/svg/web3logo";
 
 const navigation = [
   { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -215,7 +217,7 @@ export default function SideBar({children}:any) {
         </Transition>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col lg:border-none">
+        <div className="hidden lg:fixed lg:inset-y-0  lg:flex lg:w-72 lg:flex-col lg:border-none">
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r text-white px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
@@ -304,8 +306,8 @@ export default function SideBar({children}:any) {
           </div>
         </div>
 
-        <div className="lg:pl-72">
-          <div className="sticky top-0 z-40 lg:mx-auto lg:max-w-7xl lg:px-8 border-b border-indigo-300 border-opacity-25 bg-indigo-600 lg:border-none">
+        <div className="">
+          <div className="relative top-0 z-40 lg:mx-auto lg:max-w-full lg:px-8 border-b border-indigo-300 border-opacity-25 bg-indigo-600 lg:border-none">
             <div className="flex h-16 items-center gap-x-4 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-0 lg:shadow-none">
               <button
                 type="button"
@@ -315,13 +317,14 @@ export default function SideBar({children}:any) {
                 <span className="sr-only">Open sidebar</span>
                 <Bars3Icon className="h-6 w-6" aria-hidden="true" />
               </button>
+              <Web3Logo />
 
               {/* Separator */}
               <div
                 className="h-6 w-px bg-gray-200 lg:hidden"
                 aria-hidden="true"
               />
-
+              <NavLinks />
               <div className="flex flex-1 items-center gap-x-4 self-stretch lg:gap-x-6">
                 <Search />
                 <div className="flex items-center gap-x-4 lg:gap-x-6">
@@ -350,7 +353,7 @@ export default function SideBar({children}:any) {
                       />
                       <span className="hidden lg:flex lg:items-center">
                         <span
-                          className="ml-4 text-sm font-semibold leading-6 text-gray-900"
+                          className="ml-4 text-sm font-semibold leading-6 text-white"
                           aria-hidden="true"
                         >
                           Tom Cook
@@ -394,11 +397,12 @@ export default function SideBar({children}:any) {
             </div>
           </div>
 
-          <main className="py-10">
+          <main className="py-10 lg:pl-72">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
               {children}
             </div>
           </main>
+
         </div>
       </div>
     </>
