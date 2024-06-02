@@ -9,6 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import Link from "next/link";
 import React from "react";
 
 const Partners = () => {
@@ -64,6 +65,17 @@ const Partners = () => {
         <CardComponent />
         <CardComponent />
       </div>
+      <Link href="/partners/basicinput" className="mb-[50px]">
+        <article>
+          <div className="flex justify-between">
+            <div>
+              <h3>Bounties</h3>
+              <h5>A list of all the bounties and projects created</h5>
+            </div>
+            <button className="bg-blue-800 text-white p-3 rounded-md">Create a Bounty</button>
+          </div>
+        </article>
+      </Link>
       <Table>
         <TableHeader>
           <TableRow>

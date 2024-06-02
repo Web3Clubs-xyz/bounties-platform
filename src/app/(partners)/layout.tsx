@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Nav from "@/components/common/nav/nav";
 import { Lexend } from "next/font/google";
 import SideBar from "@/components/common/sidebar/sidebar";
-
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 export const metadata: Metadata = {
   title: "Bounties",
@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 };
 
 const lexend = Lexend({ subsets: ["latin"] });
-
 
 export default function PartnersPagesLayout({
   children,
@@ -22,7 +21,9 @@ export default function PartnersPagesLayout({
       <body className={lexend.className}>
         <div className="min-h-full">
           <div className="   pb-32">
-            <SideBar>{children}</SideBar>
+            <AntdRegistry>
+              <SideBar>{children}</SideBar>
+            </AntdRegistry>
           </div>
         </div>
       </body>
