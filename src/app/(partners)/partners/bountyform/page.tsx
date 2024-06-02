@@ -1,22 +1,22 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
-import { Button, message, Steps, theme } from 'antd';
-import BasicInput from '@/components/common/forms/basic';
-import Description from '@/components/common/forms/description';
-import Reward from '@/components/common/forms/reward';
+import React, { useState } from "react";
+import { Button, message, Steps, theme } from "antd";
+import BasicInput from "@/components/common/forms/basic";
+import Description from "@/components/common/forms/description";
+import Reward from "@/components/common/forms/reward";
 
 const steps = [
   {
-    title: 'Basic',
+    title: "Basic",
     content: <BasicInput />,
   },
   {
-    title: 'Description',
+    title: "Description",
     content: <Description />,
   },
   {
-    title: 'Last',
+    title: "Reward",
     content: <Reward />,
   },
 ];
@@ -36,8 +36,8 @@ const BountyForm: React.FC = () => {
   const items = steps.map((item) => ({ key: item.title, title: item.title }));
 
   const contentStyle: React.CSSProperties = {
-    lineHeight: '260px',
-    textAlign: 'center',
+    lineHeight: "260px",
+    textAlign: "center",
     color: token.colorTextTertiary,
     backgroundColor: token.colorFillAlter,
     borderRadius: token.borderRadiusLG,
@@ -46,27 +46,51 @@ const BountyForm: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="px-[200px]">
+      <h3 className="text-center">Bounties</h3>
+      <h4 className="text-center my-5 text-gray-700">
+        A list of all the bounties and projects created
+      </h4>
       <Steps current={current} items={items} />
       <div style={contentStyle}>{steps[current].content}</div>
-      <div style={{ marginTop: 24 }}>
+      <div style={{ marginTop: 24 }} className="">
         {current < steps.length - 1 && (
-          <Button type="primary" onClick={() => next()}>
-            Next
-          </Button>
+          <>
+            <button
+              onClick={() => next()}
+              type="submit"
+              className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
+            >
+              Continue
+            </button>
+            <button
+              type="submit"
+              className="my-3 rounded-md border-2 border-indigo-600 px-3 py-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
+            >
+              Save to Drafts
+            </button>
+          </>
         )}
         {current === steps.length - 1 && (
-          <Button type="primary" onClick={() => message.success('Processing complete!')}>
-            Done
-          </Button>
+          <button
+            onClick={() => message.success("Processing complete!")}
+            type="submit"
+            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
+          >
+            Create and Publish Bounty
+          </button>
         )}
         {current > 0 && (
-          <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
+          <button
+            type="submit"
+            onClick={() => prev()}
+            className="my-3 rounded-md border-2 border-indigo-600 px-3 py-2 text-sm font-semibold text-indigo-600 shadow-sm hover:bg-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 w-full"
+          >
             Previous
-          </Button>
+          </button>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

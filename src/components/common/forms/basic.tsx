@@ -27,16 +27,15 @@ const BasicInput = () => {
           </label>
           <Select>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a fruit" />
+              <SelectValue placeholder="Select Skills Needed" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Select</SelectLabel>
-                <SelectItem value="apple">Select</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                <SelectItem value="blockchain-developer">Blockchain Developer</SelectItem>
+                <SelectItem value="frontend-developer">Frontend Developer</SelectItem>
+                <SelectItem value="backend-developer">Backend Developer</SelectItem>
+                <SelectItem value="security-auditor">Security Auditor</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

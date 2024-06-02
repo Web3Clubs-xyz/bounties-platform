@@ -23,16 +23,16 @@ const Reward = () => {
           </label>
           <Select>
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a fruit" />
+              <SelectValue placeholder="Select a Token" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Select</SelectLabel>
-                <SelectItem value="apple">Select</SelectItem>
-                <SelectItem value="banana">Banana</SelectItem>
-                <SelectItem value="blueberry">Blueberry</SelectItem>
-                <SelectItem value="grapes">Grapes</SelectItem>
-                <SelectItem value="pineapple">Pineapple</SelectItem>
+                <SelectItem value="usdc">USDC</SelectItem>
+                <SelectItem value="eth">ETH</SelectItem>
+                <SelectItem value="celo">CELO</SelectItem>
+                <SelectItem value="usdt">USDT</SelectItem>
+                <SelectItem value="stark">STARK</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
