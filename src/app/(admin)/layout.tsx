@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Nav from "@/components/common/nav/nav";
 import { Lexend } from "next/font/google";
-import Footer from "@/components/common/footer/footer";
-import Stats from "@/components/common/stats/stats";
+import SideBar from "@/components/common/sidebar/sidebar";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 export const metadata: Metadata = {
   title: "Bounties",
@@ -11,15 +11,21 @@ export const metadata: Metadata = {
 
 const lexend = Lexend({ subsets: ["latin"] });
 
-export default function MainRoutesLayout({
+export default function PartnersPagesLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full bg-white">
       <body className={lexend.className}>
-       {children}
+        <div className="min-h-full">
+          <div className="   pb-32">
+            <AntdRegistry>
+              <SideBar>{children}</SideBar>
+            </AntdRegistry>
+          </div>
+        </div>
       </body>
     </html>
   );
