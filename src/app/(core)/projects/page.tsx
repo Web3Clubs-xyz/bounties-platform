@@ -1,3 +1,5 @@
+"use client";
+
 import BountyList from "@/components/common/bounty_list";
 import Footer from "@/components/common/footer/footer";
 import Nav from "@/components/common/nav/nav";

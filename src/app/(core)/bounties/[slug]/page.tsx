@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { bountiesData } from "@/data/data";
 import { CornerDownLeft, Mic, Paperclip } from "lucide-react";
@@ -134,9 +136,9 @@ const BountyDetailsPage = ({ params }: { params: { slug: string } }) => {
                     <p className="text-3xl font-bold">$ 500.00</p>
                   </div>
 
-                  <div className="border-y-2 py-6 grid grid-cols-2">
+                  <div className="border-y-2 py-6 flex flex-row space-x-10">
                     <div className="flex flex-col  space-y-8">
-                      <div className="flex justify-between items-center text-xl">
+                      <div className="flex flex-row space-x-10  items-center text-xl">
                         <p className="text-gray-500">
                           <span>🥇</span> 1st Prize
                         </p>
