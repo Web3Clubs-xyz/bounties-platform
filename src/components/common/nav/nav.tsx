@@ -16,7 +16,7 @@ const Nav = () => {
     <div>
        <Disclosure
             as="nav"
-            className="border-b border-indigo-300 border-opacity-25 bg-indigo-600 lg:border-none"
+            className=""
           >
             {({ open }) => (
               <>
