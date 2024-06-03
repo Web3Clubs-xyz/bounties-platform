@@ -4,7 +4,6 @@ import { Lexend } from "next/font/google";
 import SideBar from "@/components/common/sidebar/sidebar";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 
-
 export const metadata: Metadata = {
   title: "Bounties",
   description: "Bounties for freelancers and developers in the Web3 space.",
@@ -26,7 +25,6 @@ export default function PartnersPagesLayout({
               <SideBar>{children}</SideBar>
             </AntdRegistry>
           </div>
-
         </div>
       </body>
     </html>

@@ -1,5 +1,6 @@
 "use client";
 
+
 import { Disclosure, DisclosureButton } from '@headlessui/react'
 import React from 'react'
 import NavLinks from './nav-links'
@@ -62,19 +63,19 @@ const Nav = () => {
                           <BellIcon className="h-6 w-6" aria-hidden="true" />
                         </button>
 
-                        {/* Profile dropdown */}
-                        <ProfileMenu />
-                      </div>
-                    </div>
+                    {/* Profile dropdown */}
+                    <ProfileMenu />
                   </div>
                 </div>
+              </div>
+            </div>
 
-              <MainProfile/>
-              </>
-            )}
-          </Disclosure>
+            <MainProfile />
+          </>
+        )}
+      </Disclosure>
     </div>
-  )
-}
+  );
+};
 
-export default Nav
+export default Nav;
