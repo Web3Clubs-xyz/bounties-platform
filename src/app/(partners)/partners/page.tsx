@@ -65,7 +65,7 @@ const Partners = () => {
         <CardComponent />
         <CardComponent />
       </div>
-      <Link href="/partners/basicinput" className="mb-[50px]">
+      <Link href="/partners/bountyform" className="mb-[50px]">
         <article>
           <div className="flex justify-between">
             <div>
