@@ -9,7 +9,7 @@ import clsx from 'clsx';
 const navigation = [
     { name: 'Bounties', href: '/bounties', current: true },
     { name: 'Projects', href: '/projects', current: false },
-    { name: 'Hackathons', href: '/hackathons', current: false },
+    { name: 'Hackathons', href: '#', current: false },
   
   ]
 

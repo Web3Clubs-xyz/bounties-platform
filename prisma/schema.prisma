@@ -19,6 +19,7 @@ model Jobs {
   source        Source   @default(NATIVE)
   active        Boolean  @default(true)
   private       Boolean  @default(false)
+  bountyStatus  BountyStatus       @default(SUBMITTED)
   featured      Boolean  @default(false)
   experience    String?
   jobType       JobType  @default(fulltime)
@@ -27,16 +28,16 @@ model Jobs {
   maxEq         Float?
   minEq         Float?
   location      String?
-  sponsorId     String
+  partnerId     String
   timezone      String?
   link          String?
   sourceDetails Json?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
-  sponsor       Sponsors @relation(fields: [sponsorId], references: [id])
+  partner       Partners @relation(fields: [partnerId], references: [id])
 
   @@index([id])
-  @@index([sponsorId])
+  @@index([partnerId])
 }
 
 model Bounties {
@@ -50,7 +51,7 @@ model Bounties {
   token                String?
   rewardAmount         Float?
   rewards              Json?
-  sponsorId            String
+  partnerId            String
   pocId                String
   source               Source             @default(NATIVE)
   sourceDetails        Json?
@@ -63,6 +64,7 @@ model Bounties {
   applicationLink      String?
   skills               Json?
   type                 BountyType         @default(bounty)
+  bountyStatus         BountyStatus       @default(SUBMITTED)
   requirements         String?            @db.Text
   totalPaymentsMade    Int?               @default(0)
   totalWinnersSelected Int?               @default(0)
@@ -84,14 +86,16 @@ model Bounties {
   maxRewardAsk         Int?
   minRewardAsk         Int?
   template             BountiesTemplates? @relation(fields: [templateId], references: [id])
-  sponsor              Sponsors           @relation(fields: [sponsorId], references: [id])
+  partner              Partners           @relation(fields: [partnerId], references: [id])
   poc                  User               @relation("poc", fields: [pocId], references: [id])
   Submission           Submission[]
   SubscribeBounty      SubscribeBounty[]
   Hackathon            Hackathon?         @relation(fields: [hackathonId], references: [id])
+  BountyPayments       BountyPayments[]   
+
 
   @@index([id, slug])
-  @@index([sponsorId])
+  @@index([partnerId])
   @@index([pocId])
   @@index([templateId])
   @@index([hackathonId])
@@ -160,7 +164,7 @@ model Grants {
   rewardAmount     Int?
   link             String?
   source           Source   @default(NATIVE)
-  sponsorId        String
+  partnerId        String
   pocId            String
   isPublished      Boolean  @default(false)
   isFeatured       Boolean  @default(false)
@@ -171,12 +175,12 @@ model Grants {
   skills           Json?
   logo             String?
   region           Regions  @default(GLOBAL)
-  sponsor          Sponsors @relation(fields: [sponsorId], references: [id])
+  partner          Partners @relation(fields: [partnerId], references: [id])
   poc              User     @relation(fields: [pocId], references: [id])
 
   @@index([id, slug])
   @@index([pocId])
-  @@index([sponsorId])
+  @@index([partnerId])
 }
 
 model Submission {
@@ -220,7 +224,7 @@ model Otp {
   timestamp DateTime @default(now())
 }
 
-model Sponsors {
+model Partners {
   id                 String         @id @default(uuid())
   name               String         @unique
   slug               String         @unique
@@ -235,11 +239,12 @@ model Sponsors {
   isActive           Boolean        @default(true)
   totalRewardedInUSD Int            @default(0)
   Hackathon          Hackathon?
-  UserSponsors       UserSponsors[]
+  UserPartners       UserPartners[]
   Bounties           Bounties[]
   Grants             Grants[]
   Jobs               Jobs[]
   User               User[]
+  BountyPayments     BountyPayments[]
 
   @@index([id, slug])
   @@index([name])
@@ -307,13 +312,14 @@ model User {
   notifications     Json?
   private           Boolean           @default(false)
   skills            Json?
-  currentSponsorId  String?
+  currentpartnerId  String?
   emailVerified     DateTime?
   hackathonId       String?
   featureModalShown Boolean           @default(false)
   surveysShown      Json?
-  currentSponsor    Sponsors?         @relation(fields: [currentSponsorId], references: [id])
-  UserSponsors      UserSponsors[]
+  currentpartner    Partners?         @relation(fields: [currentpartnerId], references: [id])
+  Userpartners      UserPartners[]
+  UserAdmin         UserAdmin[]
   poc               Bounties[]        @relation("poc")
   Comment           Comment[]
   Submission        Submission[]
@@ -326,9 +332,10 @@ model User {
   Hackathon         Hackathon?        @relation(fields: [hackathonId], references: [id])
   emailSettings     EmailSettings[]
   TalentRankings    TalentRankings[]
+  BountyPayments    BountyPayments[]
 
   @@index([email, publicKey, username])
-  @@index([currentSponsorId])
+  @@index([currentpartnerId])
   @@index([hackathonId])
 }
 
@@ -376,27 +383,40 @@ model EmailSettings {
   @@index([userId])
 }
 
-model UserSponsors {
+model UserPartners {
   userId    String
-  sponsorId String
+  partnerId String
   role      Role     @default(MEMBER)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user      User     @relation(fields: [userId], references: [id])
-  sponsor   Sponsors @relation(fields: [sponsorId], references: [id])
+  partner   Partners @relation(fields: [partnerId], references: [id])
 
-  @@id([userId, sponsorId])
-  @@index([userId, sponsorId])
-  @@index([sponsorId])
+  @@id([userId, partnerId])
+  @@index([userId, partnerId])
+  @@index([partnerId])
 }
 
+model UserAdmin {
+  userId    String
+  adminId String
+  role      Role     @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+
+
+  @@id([userId, adminId])
+  @@index([userId, adminId])
+  @@index([adminId])
+}
 model UserInvites {
   id         String   @id @default(uuid())
   email      String
   senderId   String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  sponsorId  String
+  partnerId  String
   memberType Role     @default(MEMBER)
   sender     User     @relation(fields: [senderId], references: [id])
 
@@ -440,7 +460,7 @@ model Hackathon {
   slug         String     @unique
   name         String
   logo         String
-  sponsorId    String?    @unique
+  partnerId    String?    @unique
   deadline     DateTime?
   startDate    DateTime?
   description  String
@@ -448,16 +468,38 @@ model Hackathon {
   announceDate DateTime?
   eligibility  Json?
   listings     Bounties[]
-  Sponsor      Sponsors?  @relation(fields: [sponsorId], references: [id])
+  partner      Partners?  @relation(fields: [partnerId], references: [id])
   User         User[]
 
-  @@index([sponsorId])
+  @@index([partnerId])
 }
+
 
 model UnsubscribedEmail {
   id    String @id @default(uuid())
   email String @unique
 }
+
+
+model BountyPayments {
+  id          String        @id @default(uuid())
+  bountyId    String
+  userId      String
+  partnerId   String
+  amount      Float
+  status      PaymentStatus @default(PENDING)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Bounties    Bounties      @relation(fields: [bountyId], references: [id])
+  User        User          @relation(fields: [userId], references: [id])
+  partner   Partners @relation(fields: [partnerId], references: [id])
+
+
+  @@index([bountyId])
+  @@index ([userId])
+  @@index ([partnerId])
+}
+
 
 enum TalentRankingSkills {
   DEVELOPMENT
@@ -467,6 +509,7 @@ enum TalentRankingSkills {
   ALL
 }
 
+
 enum EmailType {
   BOUNTY_REVIEW
   BOUNTY_DEADLINE
@@ -474,13 +517,14 @@ enum EmailType {
   BOUNTY_CLOSE_DEADLINE
   NO_VERIFICATION
   NO_ACTIVITY
-  NO_REVIEW_SPONSOR_1
-  NO_REVIEW_SPONSOR_2
+  NO_REVIEW_partner_1
+  NO_REVIEW_partner_2
 }
 
 enum Role {
-  ADMIN
+  PARTNER
   MEMBER
+  ADMIN
 }
 
 enum Source {
@@ -503,6 +547,13 @@ enum BountyType {
   bounty
   project
   hackathon
+}
+
+enum BountyStatus {
+  SUBMITTED
+  WAITING_FOR_PAYMENT
+  APPROVED
+  REJECTED
 }
 
 enum ListingType {
@@ -560,4 +611,10 @@ enum TalentRankingTimeframe {
   LAST_30_DAYS
   LAST_7_DAYS
   ALL_TIME
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
 }
