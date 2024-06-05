@@ -18,7 +18,7 @@ export default function NavLinks() {
 	  const pathname = usePathname();
 
   return (
-    <div className=''>
+    <div className='hidden lg:flex'>
         <div className="flex space-x-4 pl-4">
         {navigation.map((link) => {
         return (

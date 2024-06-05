@@ -49,7 +49,6 @@ const BountyForm: React.FC = () => {
   };
 
   return (
-    <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
       <div className="px-[200px]">
         <h3 className="text-center font-bold">Bounties</h3>
         <h4 className="my-5 text-center text-gray-700">
@@ -95,7 +94,6 @@ const BountyForm: React.FC = () => {
           )}
         </div>
       </div>
-    </div>
   );
 };
 
