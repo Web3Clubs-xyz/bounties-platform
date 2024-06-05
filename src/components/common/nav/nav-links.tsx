@@ -18,15 +18,15 @@ export default function NavLinks() {
 	  const pathname = usePathname();
 
   return (
-    <div className='hidden lg:ml-10 lg:block'>
-        <div className="flex space-x-4">
+    <div className=''>
+        <div className="flex space-x-4 pl-4">
         {navigation.map((link) => {
         return (
           <Link
             key={link.name}
             href={link.href}
             className={clsx(
-              'text-white hover:bg-indigo-500 hover:bg-opacity-75',
+              'text-white hover:bg-indigo-800 hover:bg-opacity-75',
               'rounded-md py-2 px-3 text-sm font-medium',
               {
                 'bg-indigo-700 text-white': pathname === link.href,

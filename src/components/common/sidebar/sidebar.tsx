@@ -51,7 +51,7 @@ const teams = [
 ];
 const userNavigation = [
   { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Sign out", href: "/signin" },
 ];
 
 function classNames(...classes: string[]) {
