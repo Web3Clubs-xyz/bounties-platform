@@ -12,11 +12,11 @@ const BountyList = () => {
         <Link
           key={bounty.title}
           href={`/bounties/${bounty.id}`}
-          className="relative flex items-start space-x-3 rounded-lg border border-gray-100 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-200"
+          className="relative flex flex-col md:flex-row space-y-2 md:space-y-0 items-start md:space-x-3 rounded-lg border border-gray-100 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-200"
         >
           <div className="flex-shrink-0">
             <img
-              className="h-12 w-12 rounded-full"
+              className="h-8 w-8 md:h-12 md:w-12 rounded-full"
               src={bounty.partner_logo}
               alt="image"
             />

@@ -32,7 +32,7 @@ const Nav = () => {
   } = useDisclosure();
 
   return (
-    <div className="sticky">
+    <div className="">
       <Disclosure as="nav" >
         {({ open }) => (
           <>
@@ -106,7 +106,7 @@ const Nav = () => {
               </div>
             </div>
 
-            <MainProfile />
+            <MainProfile onLoginOpen={onLoginOpen}/>
           </>
         )}
       </Disclosure>
