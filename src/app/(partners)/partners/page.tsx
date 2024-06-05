@@ -1,4 +1,10 @@
 import CardComponent from "@/components/common/card/card";
+import Footer from "@/components/common/footer/footer";
+import Nav from "@/components/common/nav/nav";
+import PartnerNav from "@/components/common/nav/partner_nav";
+import SideBar from "@/components/common/sidebar/sidebar";
+import Stats from "@/components/common/stats/stats";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -20,7 +26,6 @@ const Partners = () => {
       deadline: "29 May 10:31 PM",
       prize: "$250.00",
       status: "Draft",
-
     },
     {
       listingName: "Courtney Henry",
@@ -59,55 +64,56 @@ const Partners = () => {
     },
   ];
   return (
-    <div>
-      <div className="flex flex-col md:flex-row justify-between ">
-        <CardComponent />
-        <CardComponent />
-        <CardComponent />
-      </div>
-      <Link href="/partners/bountyform" className="mb-[50px]">
-        <article>
-          <div className="flex justify-between">
-            <div>
-              <h3>Bounties</h3>
-              <h5>A list of all the bounties and projects created</h5>
-            </div>
-            <button className="bg-blue-800 text-white p-3 rounded-md">Create a Bounty</button>
+    <>
+      <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
+        <div>
+          <div>
+            <Stats/>
           </div>
-        </article>
-      </Link>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="">Listing Name</TableHead>
-            <TableHead>Submissions</TableHead>
-            <TableHead>Deadline</TableHead>
-            <TableHead className="">Prize</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="">Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {invoices.map((invoice) => (
-            <TableRow key={invoice.listingName}>
-              <TableCell className="font-medium">{invoice.listingName}</TableCell>
-              <TableCell>{invoice.submission}</TableCell>
-              <TableCell>{invoice.deadline}</TableCell>
-              <TableCell className="">
-                {invoice.prize}
-              </TableCell>
-              <TableCell className="">
-                {invoice.status}
-              </TableCell>
-              <TableCell className="">
-                {invoice.status}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-
-    </div>
+          <Link href="/partners/bountyform" className="mb-[50px]">
+            <article>
+              <div className="flex justify-between">
+                <div className="flex flex-col space-y-2">
+                  <h3 className="font-bold">Bounties</h3>
+                  <h5>A list of all the bounties and projects created</h5>
+                </div>
+                <Button variant="primary" className="">
+                  Create a Bounty
+                </Button>
+              </div>
+            </article>
+          </Link>
+          <div className="py-10">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="">Listing Name</TableHead>
+                  <TableHead>Submissions</TableHead>
+                  <TableHead>Deadline</TableHead>
+                  <TableHead className="">Prize</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead className="">Action</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {invoices.map((invoice) => (
+                  <TableRow key={invoice.listingName}>
+                    <TableCell className="font-medium">
+                      {invoice.listingName}
+                    </TableCell>
+                    <TableCell>{invoice.submission}</TableCell>
+                    <TableCell>{invoice.deadline}</TableCell>
+                    <TableCell className="">{invoice.prize}</TableCell>
+                    <TableCell className="">{invoice.status}</TableCell>
+                    <TableCell className="">{invoice.status}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

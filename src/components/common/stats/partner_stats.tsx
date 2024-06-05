@@ -1,11 +1,11 @@
 import React from 'react';
 const stats = [
-    { name: 'Total Value Earned', stat: '$43, 905' },
-    { name: 'Bounties', stat: '400' },
-    { name: 'Total Participants', stat: '8000' },
+    { name: 'Total Value Rewarded', stat: '$905' },
+    { name: 'Bounties Created', stat: '2' },
+    { name: 'Total Submissions', stat: '30' },
   ]
 
-const Stats = () => {
+const PartnerStats = () => {
   return (
     <div>
     <dl className="pb-6 grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-4 ">
@@ -20,4 +20,4 @@ const Stats = () => {
   )
 }
 
-export default Stats
+export default PartnerStats

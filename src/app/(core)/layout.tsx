@@ -3,6 +3,7 @@ import Nav from "@/components/common/nav/nav";
 import { Lexend } from "next/font/google";
 import Footer from "@/components/common/footer/footer";
 import Stats from "@/components/common/stats/stats";
+import { AppLayout } from "@/layout/app_layout";
 
 export const metadata: Metadata = {
   title: "Bounties",
@@ -19,7 +20,7 @@ export default function MainRoutesLayout({
   return (
     <html lang="en">
       <body className={lexend.className}>
-       {children}
+        <AppLayout>{children}</AppLayout>
       </body>
     </html>
   );

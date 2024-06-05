@@ -38,7 +38,7 @@ const Reward = () => {
           </Select>
         </div>
         <Input label="Total Reward Amount (in USDC)" inputType="total-usdc" />
-        <Input label="Web3Clubs Service Fee" inputType="service-fee" />
+        <Input label="Web3Clubs Service Fee" inputType="service-fee" disabled={true} placeholder="10 USDC" />
         <Input label="First Prize" inputType="prize-fee" />
       </div>
     </article>
