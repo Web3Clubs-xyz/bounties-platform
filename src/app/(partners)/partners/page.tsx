@@ -65,53 +65,49 @@ const Partners = () => {
   ];
   return (
     <>
-      <div className="rounded-lg bg-white px-5 py-6 shadow sm:px-6">
-        <div>
-          <div>
-            <Stats/>
+      <div>
+        <Stats />
+      </div>
+      <Link href="/partners/bountyform" className="mb-[50px]">
+        <article>
+          <div className="flex justify-between">
+            <div className="flex flex-col space-y-2">
+              <h3 className="font-bold">Bounties</h3>
+              <h5>A list of all the bounties and projects created</h5>
+            </div>
+            <Button variant="primary" className="">
+              Create a Bounty
+            </Button>
           </div>
-          <Link href="/partners/bountyform" className="mb-[50px]">
-            <article>
-              <div className="flex justify-between">
-                <div className="flex flex-col space-y-2">
-                  <h3 className="font-bold">Bounties</h3>
-                  <h5>A list of all the bounties and projects created</h5>
-                </div>
-                <Button variant="primary" className="">
-                  Create a Bounty
-                </Button>
-              </div>
-            </article>
-          </Link>
-          <div className="py-10">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="">Listing Name</TableHead>
-                  <TableHead>Submissions</TableHead>
-                  <TableHead>Deadline</TableHead>
-                  <TableHead className="">Prize</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="">Action</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {invoices.map((invoice) => (
-                  <TableRow key={invoice.listingName}>
-                    <TableCell className="font-medium">
-                      {invoice.listingName}
-                    </TableCell>
-                    <TableCell>{invoice.submission}</TableCell>
-                    <TableCell>{invoice.deadline}</TableCell>
-                    <TableCell className="">{invoice.prize}</TableCell>
-                    <TableCell className="">{invoice.status}</TableCell>
-                    <TableCell className="">{invoice.status}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
-        </div>
+        </article>
+      </Link>
+      <div className="py-10">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="">Listing Name</TableHead>
+              <TableHead>Submissions</TableHead>
+              <TableHead>Deadline</TableHead>
+              <TableHead className="">Prize</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="">Action</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {invoices.map((invoice) => (
+              <TableRow key={invoice.listingName}>
+                <TableCell className="font-medium">
+                  {invoice.listingName}
+                </TableCell>
+                <TableCell>{invoice.submission}</TableCell>
+                <TableCell>{invoice.deadline}</TableCell>
+                <TableCell className="">{invoice.prize}</TableCell>
+                <TableCell className="">{invoice.status}</TableCell>
+                <TableCell className="">{invoice.status}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     </>
   );
