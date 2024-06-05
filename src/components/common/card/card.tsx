@@ -9,7 +9,7 @@ import {
 
 export default function CardComponent() {
   return (
-    <Card className="w-full md:w-[300px] my-2">
+    <Card className="w-full md:w-[280px] my-2">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">Total Value Rewarded</CardTitle>
         <DollarSign className="h-4 w-4 text-muted-foreground" />
