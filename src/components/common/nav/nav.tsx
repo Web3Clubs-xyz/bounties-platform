@@ -1,7 +1,7 @@
 "use client";
 
 import { Disclosure, DisclosureButton } from "@headlessui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import NavLinks from "./nav-links";
 import Search from "../search/search";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/20/solid";
@@ -31,9 +31,20 @@ const Nav = () => {
     onClose: onSearchClose,
   } = useDisclosure();
 
+  useEffect(() => {
+    const checkHashAndOpenModal = () => {
+      const hashHasEmail = window.location.hash === "#emailPreferences";
+      if (hashHasEmail && status === "unauthenticated" && !session) {
+        onLoginOpen();
+      }
+    };
+
+    checkHashAndOpenModal();
+  }, [isLoginOpen, onLoginOpen, status]);
+
   return (
     <div className="">
-      <Disclosure as="nav" >
+      <Disclosure as="nav">
         {({ open }) => (
           <>
             <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
@@ -50,7 +61,7 @@ const Nav = () => {
                   </Link>
                   <NavLinks />
                 </div>
-                <Search />
+                <Search isOpen={isSearchOpen} onClose={onSearchClose} />
                 <div className="flex lg:hidden">
                   {/* Mobile menu button */}
                   <DisclosureButton className="inline-flex items-center justify-center rounded-md bg-indigo-600 p-2 text-indigo-200 hover:bg-indigo-500 hover:bg-opacity-75 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
@@ -75,38 +86,57 @@ const Nav = () => {
                     {/* Profile dropdown */}
                     {/* <ProfileMenu /> */}
 
-                    <div className="flex-shrink-0 items-center space-x-2">
-                      <Button
-                        onClick={() => {
-                          router.push("/partners");
-                        }}
-                        className="flex-shrink-0 rounded-full p-1 text-white"
-                      >
-                        Create a Bounty
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          onLoginOpen();
-                        }}
-                        variant="login"
-                      >
-                        Log In
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          onLoginOpen();
-                        }}
-                        variant="login"
-                      >
-                        Sign up
-                      </Button>
-                    </div>
+                    {status === "authenticated" && session && (
+                      <div className="flex-shrink-0 items-center space-x-2">
+                        <Button
+                          onClick={() => {
+                            router.push("/partners");
+                          }}
+                          className="flex-shrink-0 rounded-full p-1 text-white"
+                        >
+                          Create a Bounty
+                        </Button>
+                        <ProfileMenu />
+                      </div>
+                    )}
+
+                    {status === "unauthenticated" && !session && (
+                      <div className="flex-shrink-0 items-center space-x-2">
+                        <Button
+                          onClick={() => {
+                            router.push("/partners");
+                          }}
+                          className="flex-shrink-0 rounded-full p-1 text-white"
+                        >
+                          Create a Bounty
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            onLoginOpen();
+                          }}
+                          variant="login"
+                        >
+                          Log In
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            onLoginOpen();
+                          }}
+                          variant="login"
+                        >
+                          Sign up
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
 
-            <MainProfile onLoginOpen={onLoginOpen}/>
+            <MainProfile
+              onLoginOpen={onLoginOpen}
+              onSearchOpen={onSearchOpen}
+            />
           </>
         )}
       </Disclosure>
