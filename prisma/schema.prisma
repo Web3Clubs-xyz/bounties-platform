@@ -312,14 +312,13 @@ model User {
   notifications     Json?
   private           Boolean           @default(false)
   skills            Json?
-  currentpartnerId  String?
+  currentPartnerId  String?
   emailVerified     DateTime?
   hackathonId       String?
   featureModalShown Boolean           @default(false)
   surveysShown      Json?
-  currentpartner    Partners?         @relation(fields: [currentpartnerId], references: [id])
-  Userpartners      UserPartners[]
-  UserAdmin         UserAdmin[]
+  currentPartner    Partners?         @relation(fields: [currentPartnerId], references: [id])
+  UserPartners      UserPartners[]
   poc               Bounties[]        @relation("poc")
   Comment           Comment[]
   Submission        Submission[]
@@ -335,7 +334,7 @@ model User {
   BountyPayments    BountyPayments[]
 
   @@index([email, publicKey, username])
-  @@index([currentpartnerId])
+  @@index([currentPartnerId])
   @@index([hackathonId])
 }
 
@@ -395,20 +394,6 @@ model UserPartners {
   @@id([userId, partnerId])
   @@index([userId, partnerId])
   @@index([partnerId])
-}
-
-model UserAdmin {
-  userId    String
-  adminId String
-  role      Role     @default(ADMIN)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-
-
-  @@id([userId, adminId])
-  @@index([userId, adminId])
-  @@index([adminId])
 }
 model UserInvites {
   id         String   @id @default(uuid())
@@ -517,8 +502,8 @@ enum EmailType {
   BOUNTY_CLOSE_DEADLINE
   NO_VERIFICATION
   NO_ACTIVITY
-  NO_REVIEW_partner_1
-  NO_REVIEW_partner_2
+  NO_REVIEW_PARTNER_1
+  NO_REVIEW_PARTNER_2
 }
 
 enum Role {

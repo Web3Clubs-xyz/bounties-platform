@@ -12,7 +12,7 @@ export const AppLayout = ({ children }: Props) => {
   return (
     <div>
       <div className="h-full relative overflow-auto ">
-        <div className="w-full bg-gradient-to-r from-[#6366F1] to-[#A551F9] pb-32">
+        <div className="w-full bg-gradient-to-r from-primary to-secondary pb-32">
           <Nav />
           <header className="py-6">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"></div>

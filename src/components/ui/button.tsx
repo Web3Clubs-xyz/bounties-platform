@@ -19,7 +19,9 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
         primary: "bg-[#6366F1] text-white hover:bg-[#6366F1]/90",
-        login: "text-white bg-indigo-700 p-2  rounded-sm",
+        login: "text-white bg-indigo-700 p-2  rounded-sm ",
+        profile: "text-white bg-indigo-700 p-2  rounded-sm w-full ",
+
 
       },
       size: {
