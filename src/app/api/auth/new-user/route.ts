@@ -3,7 +3,7 @@ import { getToken } from 'next-auth/jwt';
 
 import { prismaDb} from '@/prisma';
 
-export default async function newUser(
+export async function POST(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {

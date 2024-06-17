@@ -20,6 +20,15 @@ export const {
       clientId: process.env.GOOGLE_ID as string,
       clientSecret: process.env.GOOGLE_SECRET as string,
       allowDangerousEmailAccountLinking: true,
+      authorization: {
+        params: {
+          scope: 'openid email profile',  // Requesting access to user's identity, email, and profile information
+          response_type: 'code',           // Expecting an authorization code in response
+          access_type: 'offline',          // Requesting a refresh token
+          prompt: 'consent',               // Force user to consent to the requested scopes
+          code_challenge_method: 'S256',   // Using SHA-256 for PKCE code challenge
+        },
+      },
       profile(profile) {
         return {
           id: Number(profile.sub),
