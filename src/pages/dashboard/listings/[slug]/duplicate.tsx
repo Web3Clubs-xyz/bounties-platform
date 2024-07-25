@@ -23,7 +23,7 @@ export default function DuplicateBounty({ slug }: Props) {
     setIsBountyLoading(true);
     try {
       const bountyDetails = await axios.get(`/api/bounties/${slug}/`);
-      if (bountyDetails.data.sponsorId !== userInfo?.currentPartnerId) {
+      if (bountyDetails.data.partnerId !== userInfo?.currentPartnerId) {
         router.push('/dashboard/listings');
       } else {
         setBounty(bountyDetails.data);

@@ -20,7 +20,7 @@ async function bounties(req: NextApiRequestWithUser, res: NextApiResponse) {
   }
 
   const params = req.query;
-  const sponsorId = user.currentPartnerId;
+  const partnerId = user.currentPartnerId;
   const searchText = params.searchText as string;
   const skip = params.take ? parseInt(params.skip as string, 10) : 0;
   const take = params.take ? parseInt(params.take as string, 10) : 15;
@@ -36,7 +36,7 @@ async function bounties(req: NextApiRequestWithUser, res: NextApiResponse) {
       where: {
         isActive: true,
         isArchived: false,
-        sponsorId,
+        partnerId,
         ...whereSearch,
         status: status.OPEN,
       },

@@ -104,7 +104,7 @@ import { Default } from '@/layouts/Default';
       try {
         const bountiesList = await axios.get('/api/bounties/', {
           params: {
-            sponsorId: userInfo?.currentPartnerId,
+            partnerId: userInfo?.currentPartnerId,
             searchText,
             skip,
             take: length,

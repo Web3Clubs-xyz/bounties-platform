@@ -34,7 +34,7 @@ export default async function getAllUsers(
         u.lastName, 
         u.photo,
         l.id as listingId, 
-        l.sponsorId, 
+        l.partnerId, 
         l.title as listingTitle, 
         l.rewards, 
         l.type as listingType, 
@@ -51,7 +51,7 @@ export default async function getAllUsers(
       JOIN
         Bounties as l ON sub.listingId = l.id
       JOIN
-        Sponsors as s ON l.sponsorId = s.id
+        Sponsors as s ON l.partnerId = s.id
       WHERE
         sub.userId = ${userId})
       UNION ALL
@@ -71,7 +71,7 @@ export default async function getAllUsers(
         u.lastName, 
         u.photo,
         NULL as listingId, 
-        NULL as sponsorId, 
+        NULL as partnerId, 
         NULL as listingTitle, 
         NULL as rewards, 
         NULL as listingType, 

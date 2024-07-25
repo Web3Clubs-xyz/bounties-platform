@@ -56,7 +56,7 @@ function BountySubmissions({ slug }: Props) {
     try {
       const bountyDetails = await axios.get(`/api/bounties/${slug}/`);
       setBounty(bountyDetails.data);
-      if (bountyDetails.data.sponsorId !== userInfo?.currentPartnerId) {
+      if (bountyDetails.data.partnerId !== userInfo?.currentPartnerId) {
         router.push('/dashboard/listings');
       }
       setTotalPaymentsMade(bountyDetails.data.paymentsMade || 0);
