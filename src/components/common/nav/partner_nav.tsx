@@ -9,7 +9,7 @@ import ProfileMenu from "../menu/profile-menu";
 import MainProfile from "../menu/main-profile";
 import Link from "next/link";
 import Image from "next/image";
-import Logo from "/public/images/logo.svg";
+import Logo from "/public/images/Logo.svg";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";

@@ -8,7 +8,7 @@ type EmailType =
   | 'createListing'
   | 'deadlineExtended'
   | 'submissionLike'
-  | 'submissionSponsor'
+  | 'submissionPartner'
   | 'submissionTalent'
   | 'superteamWinners'
   | 'commentReply'

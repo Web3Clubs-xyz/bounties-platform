@@ -1,67 +1,223 @@
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
+  Box,
+  Button,
+  Circle,
+  Flex,
   Menu,
   MenuButton,
-  Transition,
+  MenuDivider,
+  MenuGroup,
   MenuItem,
-  MenuItems,
-} from "@headlessui/react";
-import React, { Fragment } from "react";
+  MenuList,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react';
+import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
 
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "/signin" },
-];
+import { userStore } from '@/store/user';
+import { EarnAvatar } from '../nav/EarnAvatar';
 
-const user = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-}
+// import { EmailSettingsModal } from '../modals/EmailSettingsModal';
+// import { EarnAvatar } from './EarnAvatar';
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
-}
+export function UserMenu({}) {
+  const router = useRouter();
 
-const ProfileMenu = () => {
+  const { userInfo, logOut } = userStore();
+
+  const { data: session } = useSession();
+
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  useEffect(() => {
+    const checkHashAndOpenModal = () => {
+      const url = window.location.href;
+      const hashIndex = url.indexOf('#');
+      const afterHash = hashIndex !== -1 ? url.substring(hashIndex + 1) : '';
+      const [hashValue, queryString] = afterHash.split('?');
+      const hashHasEmail = hashValue === 'emailPreferences';
+      const queryParams = new URLSearchParams(queryString);
+      if (
+        (hashHasEmail && queryParams.get('loginState') === 'signedIn') ||
+        hashHasEmail
+      ) {
+        onOpen();
+      }
+    };
+
+    checkHashAndOpenModal();
+  }, [isOpen, onOpen]);
+
+  const handleClose = () => {
+    onClose();
+    router.push(router.asPath, undefined, { shallow: true });
+  };
+
+  const [showBlueCircle, setShowBlueCircle] = useState(() => {
+    return !localStorage.getItem('emailPreferencesClicked');
+  });
+
+  const handleEmailPreferencesClick = () => {
+    onOpen();
+    setShowBlueCircle(false);
+    localStorage.setItem('emailPreferencesClicked', 'true');
+  };
+
   return (
-    <Menu as="div" className="relative ml-3 flex-shrink-0">
-      <div>
-        <MenuButton className="flex rounded-full bg-indigo-600 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600">
-          <span className="sr-only">Open user menu</span>
-          <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
-        </MenuButton>
-      </div>
-      <Transition
-        as={Fragment}
-        enter="transition ease-out duration-100"
-        enterFrom="transform opacity-0 scale-95"
-        enterTo="transform opacity-100 scale-100"
-        leave="transition ease-in duration-75"
-        leaveFrom="transform opacity-100 scale-100"
-        leaveTo="transform opacity-0 scale-95"
-      >
-        <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          {userNavigation.map((item) => (
-            <MenuItem key={item.name}>
-              {({ active }) => (
-                <a
-                  href={item.href}
-                  className={classNames(
-                    active ? "bg-gray-100" : "",
-                    "block px-4 py-2 text-sm text-gray-700"
-                  )}
-                >
-                  {item.name}
-                </a>
-              )}
-            </MenuItem>
-          ))}
-        </MenuItems>
-      </Transition>
-    </Menu>
-  );
-};
+    <div className='flex space-x-2'>
+      {/* <EmailSettingsModal isOpen={isOpen} onClose={handleClose} /> */}
+      {userInfo && !userInfo.currentPartnerId && !userInfo.isTalentFilled && (
+        <Button
+          display={{ base: 'none', md: 'flex' }}
+          fontSize="xs"
+          onClick={() => {
+            router.push('/new');
+          }}
+          size="sm"
+          variant={'ghost'}
+        >
+          Complete your Profile
+        </Button>
+      )}
+      <Menu>
+        <MenuButton
+          as={Button}
+          px={{ base: 0.5, md: 2 }}
+          bg={'brand.slate.50'}
+          borderWidth={'1px'}
+          borderColor={'white'}
+          _hover={{ bg: 'brand.slate.100' }}
+          _active={{
+            bg: 'brand.slate.200',
+            borderColor: 'brand.slate.300',
+          }}
+          cursor={'pointer'}
+          rightIcon={
+            <ChevronDownIcon
+              color="brand.slate.400"
+              boxSize={{ base: 4, md: 5 }}
+            />
+          }
+        >
+          <Flex align="center">
+            <EarnAvatar id={userInfo?.id} avatar={userInfo?.photo} />
+            {showBlueCircle && (
+              <Circle
+                display={{ base: 'flex', md: 'none' }}
+                ml={2}
+                bg="blue.400"
+                size="8px"
+              />
+            )}
 
-export default ProfileMenu;
+            <Flex
+              align={'center'}
+              display={{ base: 'none', md: 'flex' }}
+              ml={2}
+            >
+              <Text color="brand.slate.600" fontSize="sm" fontWeight={500}>
+                {userInfo?.firstName ?? 'New User'}
+              </Text>
+              {showBlueCircle && <Circle ml={2} bg="blue.400" size="8px" />}
+            </Flex>
+          </Flex>
+        </MenuButton>
+        <MenuList>
+          {userInfo?.isTalentFilled && (
+            <>
+              <MenuItem
+                as={NextLink}
+                color="brand.slate.500"
+                fontSize="sm"
+                fontWeight={600}
+                href={`/t/${userInfo?.username}`}
+              >
+                Profile
+              </MenuItem>
+              <MenuItem
+                as={NextLink}
+                color="brand.slate.500"
+                fontSize="sm"
+                fontWeight={600}
+                href={`/t/${userInfo?.username}/edit`}
+              >
+                Edit Profile
+              </MenuItem>
+            </>
+          )}
+          {!!userInfo?.currentPartnerId && (
+            <>
+              <MenuItem
+                as={NextLink}
+                display={{ base: 'none', sm: 'block' }}
+                color="brand.slate.500"
+                fontSize="sm"
+                fontWeight={600}
+                href={'/dashboard/listings'}
+              >
+                Partner Dashboard
+              </MenuItem>
+            </>
+          )}
+          <MenuDivider />
+          {session?.user?.role === 'GOD' && (
+            <Box display={{ base: 'none', sm: 'block' }}>
+              <MenuGroup
+                mb={0}
+                ml={3}
+                color="brand.slate.400"
+                fontSize="xs"
+                fontWeight={500}
+                title="God Mode"
+              >
+                <MenuItem
+                  as={NextLink}
+                  color="brand.slate.500"
+                  fontSize="sm"
+                  fontWeight={600}
+                  href={'/new/sponsor'}
+                >
+                  Create New Partner
+                </MenuItem>
+              </MenuGroup>
+              <MenuDivider />
+            </Box>
+          )}
+          {(userInfo?.isTalentFilled || !!userInfo?.currentPartnerId) && (
+            <MenuItem
+              color="brand.slate.500"
+              fontSize="sm"
+              fontWeight={600}
+              onClick={handleEmailPreferencesClick}
+            >
+              Email Preferences
+              {showBlueCircle && <Circle ml={2} bg="blue.400" size="8px" />}
+            </MenuItem>
+          )}
+          <MenuItem
+            color="brand.slate.500"
+            fontSize="sm"
+            fontWeight={600}
+            onClick={() =>
+              window.open('mailto:info@web3club.xyz', '_blank')
+            }
+          >
+            Get Help
+          </MenuItem>
+          <MenuItem
+            color="red.500"
+            fontSize="sm"
+            fontWeight={600}
+            onClick={() => logOut()}
+          >
+            Logout
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    </div>
+  );
+}
