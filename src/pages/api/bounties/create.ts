@@ -34,16 +34,18 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
       },
     });
 
-    if (
-      result.isPublished &&
-      !result.isPrivate &&
-      result.type !== 'hackathon'
-    ) {
-      await sendEmailNotification({
-        type: 'createListing',
-        id: result.id,
-      });
-    }
+    //TODO: Uncomment this when we have the email backend
+    
+    // if (
+    //   result.isPublished &&
+    //   !result.isPrivate &&
+    //   result.type !== 'hackathon'
+    // ) {
+    //   await sendEmailNotification({
+    //     type: 'createListing',
+    //     id: result.id,
+    //   });
+    // }
     try {
       if (process.env.NEXT_PUBLIC_VERCEL_ENV === 'production') {
         const zapierWebhookUrl = process.env.ZAPIER_BOUNTY_WEBHOOK!;

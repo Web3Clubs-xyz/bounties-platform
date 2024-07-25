@@ -23,7 +23,7 @@ import {
   Template,
 } from './ListingBuilder';
 import { ListingSuccessModal } from './ListingSuccessModal';
-import { hackathonSponsorAtom } from './SelectSponsor';
+import { hackathonPartnerAtom } from './SelectSponsor';
 
 interface Props {
   listing?: Bounty;
@@ -112,7 +112,7 @@ export function CreateListing({
     onClose: onSurveyClose,
   } = useDisclosure();
 
-  const [hackathonSponsor, setHackathonSponsor] = useAtom(hackathonSponsorAtom);
+  const [hackathonPartner, setHackathonPartner] = useAtom(hackathonPartnerAtom);
 
   const basePath = type === 'hackathon' ? 'hackathon' : 'bounties';
   const surveyId = '018c674f-7e49-0000-5097-f2affbdddb0d';
@@ -167,7 +167,7 @@ export function CreateListing({
 
   useEffect(() => {
     if (editable && type === 'hackathon' && listing?.partnerId) {
-      setHackathonSponsor(listing?.partnerId);
+      setHackathonPartner(listing?.partnerId);
     }
   }, [editable]);
 
@@ -218,7 +218,7 @@ export function CreateListing({
       }
       const result = await axios.post(api, {
         ...newListing,
-        ...(type === 'hackathon' ? { hackathonSponsor } : {}),
+        ...(type === 'hackathon' ? { hackathonPartner } : {}),
       });
       setSlug(`/${result?.data?.type}/${result?.data?.slug}/`);
       setIsListingPublishing(false);
@@ -278,7 +278,7 @@ export function CreateListing({
       };
 
       await axios.post(api, {
-        ...(type === 'hackathon' ? { hackathonSponsor } : {}),
+        ...(type === 'hackathon' ? { hackathonPartner } : {}),
         ...draft,
         isPublished: editable && !isDuplicating ? listing?.isPublished : false,
       });

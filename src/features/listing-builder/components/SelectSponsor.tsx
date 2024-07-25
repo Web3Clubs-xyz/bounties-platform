@@ -40,7 +40,7 @@ export function SelectPartner({ type }: { type?: string }) {
 
   const loadPartners = (
     inputValue: string,
-    callback: (options: partnerOption[]) => void,
+    callback: (options: PartnerOption[]) => void,
   ) => {
     axios
       .get(`/api/partners/list/`, {
