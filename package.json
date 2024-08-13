@@ -33,6 +33,8 @@
     "@solana/wallet-adapter-react": "^0.15.35",
     "@solana/wallet-adapter-react-ui": "^0.9.35",
     "@solana/web3.js": "^1.91.2",
+    "@tanstack/react-query": "^5.51.23",
+    "@tanstack/react-query-devtools": "^5.51.23",
     "@tiptap/extension-color": "^2.2.3",
     "@tiptap/extension-image": "^2.2.4",
     "@tiptap/extension-link": "^2.2.3",

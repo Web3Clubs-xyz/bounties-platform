@@ -1,4 +1,4 @@
-import BountyList from "@/components/common/bounty_list";
+import BountyList from "@/components/common/BountyList";
 import Footer from "@/components/common/footer/footer";
 import Nav from "@/components/common/nav/nav";
 import Stats from "@/components/common/stats/stats";

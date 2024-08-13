@@ -1,4 +1,4 @@
-import BountyList from "@/components/common/bounty_list";
+import BountyList from "@/components/common/BountyList";
 import Footer from "@/components/common/footer/footer";
 import Nav from "@/components/common/nav/nav";
 import Stats from "@/components/common/stats/stats";
@@ -7,48 +7,36 @@ import { Bounty } from "@/features/listings";
 import { Default } from "@/layouts/Default";
 import axios from "axios";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 interface Listings {
   bounties?: Bounty[];
   total?: number;
 }
 
-const BountiesPage = () => {
-  const [isListingsLoading, setIsListingsLoading] = useState(true);
-  const [listings, setListings] = useState<Listings>({
-    bounties: [],
-    total: 0,
+const fetchListings = async (): Promise<Listings> => {
+  const response = await axios.get("/api/listings/", {
+    params: {
+      category: 'bounties',
+      type: 'bounty',
+      take: 100,
+    },
   });
+  return response.data;
+};
+
+const BountiesPage = () => {
   const [activeTab, setActiveTab] = useState("open");
-  const [filteredBounties, setFilteredBounties] = useState<Bounty[]>([]);
 
-  console.log("listings", listings.bounties);
-  console.log("filteredBounties", filteredBounties);
+  const { data: listings, isLoading: isListingsLoading } = useQuery(
+   
+   {
+    queryKey: ['listings'], queryFn: fetchListings
+   }
+  );
 
-  const getListings = async () => {
-    setIsListingsLoading(true);
-    try {
-      const listingsData = await axios.get("/api/listings/", {
-        params: {
-          category: 'bounties',
-          type: 'bounty',
-          take: 100,
-        },
-      });
-      console.log("listingsData", listingsData.data);
-      setListings(listingsData.data);
-      setIsListingsLoading(false);
-    } catch (e) {
-      setIsListingsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getListings();
-  }, []);
-
-  const filterBounties = (status: string, bounties: Bounty[]) => {
+  const filterBounties = (status: string, bounties: Bounty[] = []) => {
     switch (status) {
       case "open":
         return bounties.filter(
@@ -75,13 +63,7 @@ const BountiesPage = () => {
     }
   };
 
-
-  useEffect(() => {
-    if (listings.bounties) {
-      const filtered = filterBounties(activeTab, listings.bounties);
-      setFilteredBounties(filtered);
-    }
-  }, [activeTab, listings.bounties]);
+  const filteredBounties = filterBounties(activeTab, listings?.bounties);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);

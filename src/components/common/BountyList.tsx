@@ -23,7 +23,6 @@ const BountyList = ({bounties,
   emptyMessage,
   checkLanguage}: ContentProps) => {
 
-    console.log("bounties", bounties)
   return (
     <Flex direction={'column'} rowGap={1}>
     {isListingsLoading ? (
