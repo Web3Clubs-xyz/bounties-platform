@@ -65,6 +65,7 @@ import {
 //   import { Sidebar } from '@/layouts/Sponsor';
   import { userStore } from '@/store/user';
 import { Default } from '@/layouts/Default';
+import { Sidebar } from '@/layouts/Sponsor';
   
   const debounce = require('lodash.debounce');
   
@@ -183,7 +184,7 @@ import { Default } from '@/layouts/Default';
     } = useDisclosure();
   
     return (
-      <Default>
+      <Sidebar>
         <Modal isOpen={unpublishIsOpen} onClose={unpublishOnClose}>
           <ModalOverlay />
           <ModalContent>
@@ -718,7 +719,7 @@ import { Default } from '@/layouts/Default';
             </Flex>
           </>
         )}
-      </Default>
+      </Sidebar>
     );
   }
   
