@@ -72,7 +72,7 @@ export const ListingCard = ({
     rewardAmount,
     deadline,
     type,
-    sponsor,
+    partner,
     title,
     token,
     slug,
@@ -176,11 +176,11 @@ export const ListingCard = ({
               w={{ base: 14, sm: 16 }}
               h={{ base: 14, sm: 16 }}
               mr={{ base: 3, sm: 5 }}
-              alt={sponsor?.name}
+              alt={partner?.name}
               rounded={5}
               src={
-                sponsor?.logo
-                  ? sponsor.logo.replace(
+                partner?.logo
+                  ? partner.logo.replace(
                       '/upload/',
                       '/upload/c_scale,w_128,h_128,f_auto/',
                     )
@@ -209,7 +209,7 @@ export const ListingCard = ({
                 color={'brand.slate.500'}
                 fontSize={{ md: 'sm', base: 'xs' }}
               >
-                {sponsor?.name}
+                {partner?.name}
               </Text>
               <Flex align={'center'} gap={{ base: 1, sm: 3 }} mt={'1px'}>
                 <>
@@ -371,7 +371,7 @@ export const ListingCardMobile = ({
     rewardAmount,
     deadline,
     type,
-    sponsor,
+    partner,
     title,
     token,
     slug,
@@ -415,11 +415,11 @@ export const ListingCardMobile = ({
               w={14}
               h={14}
               mr={3}
-              alt={sponsor?.name}
+              alt={partner?.name}
               rounded={5}
               src={
-                sponsor?.logo
-                  ? sponsor.logo.replace(
+                partner?.logo
+                  ? partner.logo.replace(
                       '/upload/',
                       '/upload/c_scale,w_128,h_128,f_auto/',
                     )
@@ -444,7 +444,7 @@ export const ListingCardMobile = ({
                 {title}
               </Text>
               <Text w={'full'} color={'brand.slate.500'} fontSize={'xs'}>
-                {sponsor?.name}
+                {partner?.name}
               </Text>
               <Flex align={'center'} wrap={'wrap'} gap={1} mt={'1px'}>
                 <>
