@@ -70,7 +70,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
           ...skillsFilter,
         },
         include: {
-          sponsor: {
+          partner: {
             select: {
               name: true,
               slug: true,
@@ -102,7 +102,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
           Hackathon: null,
         },
         include: {
-          sponsor: {
+          partner: {
             select: {
               name: true,
               slug: true,
@@ -147,7 +147,7 @@ export default async function user(req: NextApiRequest, res: NextApiResponse) {
           token: true,
           rewardAmount: true,
           link: true,
-          sponsor: {
+          partner: {
             select: {
               id: true,
               name: true,

@@ -10,31 +10,31 @@ import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 
 interface Listings {
-  data?: Bounty[];
+  bounties?: Bounty[];
   total?: number;
 }
 
 const BountiesPage = () => {
   const [isListingsLoading, setIsListingsLoading] = useState(true);
   const [listings, setListings] = useState<Listings>({
-    data: [],
+    bounties: [],
     total: 0,
   });
   const [activeTab, setActiveTab] = useState("open");
   const [filteredBounties, setFilteredBounties] = useState<Bounty[]>([]);
 
-  console.log("listings", listings.data);
+  console.log("listings", listings.bounties);
   console.log("filteredBounties", filteredBounties);
 
   const getListings = async () => {
     setIsListingsLoading(true);
     try {
-      const listingsData = await axios.get("/api/bounties/", {
-        // params: {
-        //   category: 'bounties',
-        //   type: 'bounty',
-        //   take: 100,
-        // },
+      const listingsData = await axios.get("/api/listings/", {
+        params: {
+          category: 'bounties',
+          type: 'bounty',
+          take: 100,
+        },
       });
       console.log("listingsData", listingsData.data);
       setListings(listingsData.data);
@@ -77,11 +77,11 @@ const BountiesPage = () => {
 
 
   useEffect(() => {
-    if (listings.data) {
-      const filtered = filterBounties(activeTab, listings.data);
+    if (listings.bounties) {
+      const filtered = filterBounties(activeTab, listings.bounties);
       setFilteredBounties(filtered);
     }
-  }, [activeTab, listings.data]);
+  }, [activeTab, listings.bounties]);
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);

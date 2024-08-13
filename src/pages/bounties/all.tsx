@@ -24,7 +24,7 @@ export default function AllBountiesPage() {
   const getListings = async () => {
     setIsListingsLoading(true);
     try {
-      const listingsData = await axios.get('/api/bounties/', {
+      const listingsData = await axios.get('/api/listings/', {
         params: {
           category: 'bounties',
           type: 'bounty',
